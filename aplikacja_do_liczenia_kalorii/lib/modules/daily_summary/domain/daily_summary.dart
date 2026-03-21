@@ -1,0 +1,25 @@
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/domain/daily_meals.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+part 'daily_summary.g.dart';
+
+class DailySummary {
+  final int calories;
+  final double protein;
+  final double fat;
+  final double carbs;
+  const DailySummary(this.calories, this.protein, this.fat, this.carbs);
+}
+
+@riverpod
+DailySummary dailySummary(Ref ref) {
+  final meals = ref.watch(dailyMealsProvider);
+  return meals.fold(
+    DailySummary(0, 0, 0, 0),
+    (prev, meal) => DailySummary(
+      prev.calories + meal.calories,
+      prev.protein + meal.protein,
+      prev.fat + meal.fat,
+      prev.carbs + meal.carbs,
+    ),
+  );
+}

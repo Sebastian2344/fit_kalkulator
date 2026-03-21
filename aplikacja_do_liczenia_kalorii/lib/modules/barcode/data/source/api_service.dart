@@ -1,0 +1,27 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class BarcodeApiService {
+  const BarcodeApiService(this.httpClient);
+  final http.Client httpClient;
+  Future<Map<String, dynamic>?> fetchProductByBarcode(String barcode) async {
+    // Używamy darmowego API OpenFoodFacts
+    final url = Uri.parse(
+      'https://world.openfoodfacts.org/api/v0/product/$barcode.json',
+    );
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {'User-Agent': 'FitKalkulatorApp - Android - Version 1.0'},
+      );
+
+      if (response.statusCode == 200) {
+        return json.decode(response.body);
+      }
+    } catch (e) {
+      throw Exception("Błąd pobierania produktu: $e");
+    }
+    return null;
+  }
+}
