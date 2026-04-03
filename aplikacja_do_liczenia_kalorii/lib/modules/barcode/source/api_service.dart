@@ -1,10 +1,11 @@
+import 'package:aplikacja_do_liczenia_kalorii/modules/barcode/model/product_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class BarcodeApiService {
   const BarcodeApiService(this.httpClient);
   final http.Client httpClient;
-  Future<Map<String, dynamic>?> fetchProductByBarcode(String barcode) async {
+  Future<ProductModel?> fetchProductByBarcode(String barcode) async {
     // Używamy darmowego API OpenFoodFacts
     final url = Uri.parse(
       'https://world.openfoodfacts.org/api/v0/product/$barcode.json',
@@ -17,7 +18,8 @@ class BarcodeApiService {
       );
 
       if (response.statusCode == 200) {
-        return json.decode(response.body);
+        final data = json.decode(response.body);
+        return ProductModel.fromJson(data['product'], data['product']['nutriments'], data['status']);
       }
     } catch (e) {
       throw Exception("Błąd pobierania produktu: $e");

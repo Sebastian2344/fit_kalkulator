@@ -1,7 +1,7 @@
 // ==========================================
 // 2. BAZA PRODUKTÓW (Zaktualizowana o Makro)
 // ==========================================
-import 'package:aplikacja_do_liczenia_kalorii/core/model/product.dart';
+import 'package:aplikacja_do_liczenia_kalorii/core/entity/product.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'product_db.g.dart';
 @riverpod

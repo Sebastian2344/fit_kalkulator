@@ -1,5 +1,5 @@
 import 'package:aplikacja_do_liczenia_kalorii/widgets/home_screen.dart';
-import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/data/meal.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/model/meal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';

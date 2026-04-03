@@ -1,4 +1,4 @@
-import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/data/meal.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/model/meal.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

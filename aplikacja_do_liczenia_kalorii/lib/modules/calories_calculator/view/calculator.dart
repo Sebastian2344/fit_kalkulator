@@ -1,7 +1,9 @@
-import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/data/model/calories_models.dart';
-import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/domain/activity_provider.dart';
-import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/domain/calculator_provider.dart';
-import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/domain/gender_provider.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/model/calories_models.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/view/result_widget.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/view/sex_choice_widget.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/viewmodel/activity_provider.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/viewmodel/calculator_provider.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/viewmodel/gender_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,11 +24,11 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   void _calculate(WidgetRef ref) {
     if (_formKey.currentState!.validate()) {
       final stats = UserStats(
-        gender: ref.read(genderProvider).result,
+        gender: ref.read(genderProvider),
         age: int.parse(_ageController.text),
         weight: double.parse(_weightController.text),
         height: double.parse(_heightController.text),
-        activityLevel: ref.read(activityLevelProvider).result,
+        activityLevel: ref.read(activityLevelProvider),
       );
 
       // Wywołujemy kontroler widoku
@@ -44,7 +46,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { // Debug
     return Scaffold(
       appBar: AppBar(
         title: const Text('Kalkulator Kalorii'),
@@ -77,30 +79,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Consumer(
-                builder: (c, ref, child) {
-                  final gender = ref.watch(genderProvider).result;
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ChoiceChip(
-                        label: const Text('Mężczyzna'),
-                        selected: gender == Gender.male,
-                        onSelected: (val) => ref
-                            .read(genderProvider.notifier)
-                            .setGender(Gender.male),
-                      ),
-                      ChoiceChip(
-                        label: const Text('Kobieta'),
-                        selected: gender == Gender.female,
-                        onSelected: (val) => ref
-                            .read(genderProvider.notifier)
-                            .setGender(Gender.female),
-                      ),
-                    ],
-                  );
-                },
-              ),
+              const SexChoiceWidget(),
               const SizedBox(height: 16),
 
               // DANE (Wiek, Waga, Wzrost)
@@ -147,7 +126,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
               // POZIOM AKTsYWNOŚCI
               Consumer(
                 builder: (c, ref, child) {
-                  final activityLevel = ref.watch(activityLevelProvider).result;
+                  final activityLevel = ref.watch(activityLevelProvider);
                   return DropdownButtonFormField<ActivityLevel>(
                     initialValue: activityLevel,
                     decoration: const InputDecoration(
@@ -183,42 +162,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 ),
               ),
               const SizedBox(height: 32),
-              Consumer(
-                builder: (c, ref, child) {
-                  final state = ref.watch(calculatorControllerProvider);
-                  if (state.result == null) {
-                    return const SizedBox.shrink();
-                  }
-                  return Card(
-                    color: Colors.blue.shade50,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Wyniki:',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'BMR: ${state.result!.bmr.toStringAsFixed(0)} kcal',
-                          ),
-                          Text(
-                            'TDEE: ${state.result!.tdee.toStringAsFixed(0)} kcal',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+              const ResultWidget(),
             ],
           ),
         ),

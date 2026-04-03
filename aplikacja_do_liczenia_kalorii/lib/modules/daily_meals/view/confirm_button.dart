@@ -1,6 +1,6 @@
-import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/domain/calc_in_dialog.dart';
-import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/data/meal.dart';
-import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/domain/daily_meals.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/viewmodel/calc_in_dialog.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/model/meal.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/viewmodel/daily_meals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

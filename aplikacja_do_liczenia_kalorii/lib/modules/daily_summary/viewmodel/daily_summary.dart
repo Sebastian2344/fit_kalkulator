@@ -1,4 +1,4 @@
-import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/domain/daily_meals.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/viewmodel/daily_meals.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'daily_summary.g.dart';
 

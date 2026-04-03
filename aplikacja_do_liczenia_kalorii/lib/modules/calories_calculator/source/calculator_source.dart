@@ -1,5 +1,4 @@
-import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/data/model/calories_models.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/calories_calculator/model/calories_models.dart';
 
 class CalculatorSource {
   CalorieResult calculateBmrAndTdee(UserStats stats) {
@@ -11,7 +10,3 @@ class CalculatorSource {
     return CalorieResult(bmr: bmr, tdee: tdee);
   }
 }
-
-final calculatorSourceProvider = Provider<CalculatorSource>((ref) {
-  return CalculatorSource();
-});

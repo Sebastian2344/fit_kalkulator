@@ -1,4 +1,4 @@
-import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/domain/calc_in_dialog.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/viewmodel/calc_in_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

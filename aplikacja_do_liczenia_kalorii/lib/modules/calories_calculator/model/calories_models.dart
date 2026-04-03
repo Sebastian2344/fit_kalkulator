@@ -21,7 +21,7 @@ class UserStats {
   final double height;
   final ActivityLevel activityLevel;
 
-  UserStats({
+  const UserStats({
     required this.gender,
     required this.age,
     required this.weight,

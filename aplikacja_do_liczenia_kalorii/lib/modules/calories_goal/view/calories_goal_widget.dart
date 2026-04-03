@@ -1,4 +1,4 @@
-import 'package:aplikacja_do_liczenia_kalorii/modules/calories_goal/domain/calories_goal.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/calories_goal/viewmodel/calories_goal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

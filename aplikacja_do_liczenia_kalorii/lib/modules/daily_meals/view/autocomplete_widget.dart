@@ -1,7 +1,7 @@
-import 'package:aplikacja_do_liczenia_kalorii/modules/barcode/domain/barcode_provider.dart';
-import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/domain/calc_in_dialog.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/barcode/viewmodel/barcode_provider.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/viewmodel/calc_in_dialog.dart';
 import 'package:aplikacja_do_liczenia_kalorii/modules/food_db/product_db.dart';
-import 'package:aplikacja_do_liczenia_kalorii/core/model/product.dart';
+import 'package:aplikacja_do_liczenia_kalorii/core/entity/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
