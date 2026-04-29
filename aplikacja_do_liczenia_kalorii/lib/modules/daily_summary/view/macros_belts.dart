@@ -1,5 +1,5 @@
 import 'package:aplikacja_do_liczenia_kalorii/modules/daily_summary/viewmodel/daily_summary.dart';
-import 'package:aplikacja_do_liczenia_kalorii/widgets/macro_item.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/home_screen/macro_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -48,4 +48,4 @@ final class DailySummaryProvider
   }
 }
 
-String _$dailySummaryHash() => r'73b5507d91bae4f4c6af45c1fe61c1521cfa1cb6';
+String _$dailySummaryHash() => r'f4634e46341a4d49a8619f5659da467a600fa5c9';

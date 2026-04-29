@@ -9,6 +9,47 @@ part of 'daily_meals.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
+@ProviderFor(mealsBox)
+final mealsBoxProvider = MealsBoxProvider._();
+
+final class MealsBoxProvider
+    extends $FunctionalProvider<Box<Meal>, Box<Meal>, Box<Meal>>
+    with $Provider<Box<Meal>> {
+  MealsBoxProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'mealsBoxProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$mealsBoxHash();
+
+  @$internal
+  @override
+  $ProviderElement<Box<Meal>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Box<Meal> create(Ref ref) {
+    return mealsBox(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Box<Meal> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Box<Meal>>(value),
+    );
+  }
+}
+
+String _$mealsBoxHash() => r'4376523ee2816d2d3f5e227efb2c1a4017be258b';
+
 @ProviderFor(DailyMeals)
 final dailyMealsProvider = DailyMealsProvider._();
 
@@ -41,7 +82,7 @@ final class DailyMealsProvider
   }
 }
 
-String _$dailyMealsHash() => r'156afe687fff69c7468b33a1ec4dcb7b803a4e0b';
+String _$dailyMealsHash() => r'd0e316cbd5d14aa2d5974ab9448e7dcc3f2e8d9b';
 
 abstract class _$DailyMeals extends $Notifier<List<Meal>> {
   List<Meal> build();

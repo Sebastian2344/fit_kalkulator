@@ -8,6 +8,18 @@ class DailySummary {
   final double fat;
   final double carbs;
   const DailySummary(this.calories, this.protein, this.fat, this.carbs);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DailySummary &&
+          calories == other.calories &&
+          protein == other.protein &&
+          fat == other.fat &&
+          carbs == other.carbs;
+
+  @override
+  int get hashCode => Object.hash(calories, protein, fat, carbs);
 }
 
 @riverpod

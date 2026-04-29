@@ -3,18 +3,20 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'calories_goal.g.dart';
 
 @riverpod
-class CalorieGoal extends _$CalorieGoal {
-  late Box _settingsBox;
+Box settingsBox(Ref ref) => Hive.box('settings');
 
+@riverpod
+class CalorieGoal extends _$CalorieGoal {
   @override
   int build() {
-    _settingsBox = Hive.box('settings');
-    // Pobierz zapisany cel lub domyślnie 2500
-    return _settingsBox.get('daily_goal', defaultValue: 2500);
+    // 2. Watchujemy box zamiast otwierać go bezpośrednio
+    final box = ref.watch(settingsBoxProvider);
+    return box.get('daily_goal', defaultValue: 2500);
   }
 
   void setGoal(int newGoal) {
     state = newGoal;
-    _settingsBox.put('daily_goal', newGoal);
+    // 3. Używamy boxa przez ref
+    ref.read(settingsBoxProvider).put('daily_goal', newGoal);
   }
 }

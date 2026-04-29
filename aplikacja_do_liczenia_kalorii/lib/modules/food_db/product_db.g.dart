@@ -54,4 +54,4 @@ final class ProductsDatabaseProvider
   }
 }
 
-String _$productsDatabaseHash() => r'd8295290b0d0a6a837444690667bcc15c8c4bd93';
+String _$productsDatabaseHash() => r'8f725908ed93774914a5e9b6205caa7c4e29a2d6';

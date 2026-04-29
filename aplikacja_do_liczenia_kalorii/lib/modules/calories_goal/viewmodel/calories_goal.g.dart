@@ -9,6 +9,47 @@ part of 'calories_goal.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
+@ProviderFor(settingsBox)
+final settingsBoxProvider = SettingsBoxProvider._();
+
+final class SettingsBoxProvider
+    extends $FunctionalProvider<Box<dynamic>, Box<dynamic>, Box<dynamic>>
+    with $Provider<Box<dynamic>> {
+  SettingsBoxProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'settingsBoxProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$settingsBoxHash();
+
+  @$internal
+  @override
+  $ProviderElement<Box<dynamic>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Box<dynamic> create(Ref ref) {
+    return settingsBox(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Box<dynamic> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Box<dynamic>>(value),
+    );
+  }
+}
+
+String _$settingsBoxHash() => r'a55a5a4854f303034f55ea860d69785c61a6a9f7';
+
 @ProviderFor(CalorieGoal)
 final calorieGoalProvider = CalorieGoalProvider._();
 
@@ -40,7 +81,7 @@ final class CalorieGoalProvider extends $NotifierProvider<CalorieGoal, int> {
   }
 }
 
-String _$calorieGoalHash() => r'd199723faef46e47953d3a7f56ad88c846e95cbc';
+String _$calorieGoalHash() => r'65658cd0c35f6c798a4d3b5e7f1408ad7698b468';
 
 abstract class _$CalorieGoal extends $Notifier<int> {
   int build();
