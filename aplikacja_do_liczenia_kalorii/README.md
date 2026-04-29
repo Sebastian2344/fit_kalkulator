@@ -1,16 +1,22 @@
-# aplikacja_do_liczenia_kalorii
+# task_meneger
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Aplikacja do liczenia kalorii.
+### Funkcje:
+  * dodawaine i usuwanie posiłków,
+  * obliczanie kalorii i makro składników dla każdego produktu na podstawie danych z kodu kreskowego i api oraz masy podanej przez urzytkownika lub lokalnej bazy produktów i nazwy produktu oraz jego masy,
+  * skanowanie kodów kreskowych,
+  * cashowanie danych,
+  * kalkulator zapotrzebowania kalorycznego,
+  * podsumowanie dzienne spożytych kalorii i makroskładników,
+  * ustalanie celu kalorycznego.
+### Testy:
+  * jednostkowe,
+  * widget testy.
+### Biblioteki:
+  `hive`,
+  `riverpod`,
+  `http`,
+  `equatable`,
+  `mobile_scanner`,
+  `mocktail`,
+  `flutter_test`.
