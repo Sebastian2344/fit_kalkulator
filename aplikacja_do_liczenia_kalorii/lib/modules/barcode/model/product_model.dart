@@ -17,16 +17,37 @@ class ProductModel {
     required this.status,
   });
 
-  factory ProductModel.fromJson(dynamic productData, dynamic nutriments,dynamic status) {
-    return ProductModel(
-      name: (productData['product_name'] ?? "Nieznany produkt") as String,
-      kcalPer100g: (nutriments['energy-kcal_100g'] ?? 0) as int,
-      proteinPer100g: (nutriments['proteins_100g'] ?? 0.0) as double,
-      fatPer100g: (nutriments['fat_100g'] ?? 0.0) as double,
-      carbsPer100g: (nutriments['carbohydrates_100g'] ?? 0.0) as double,
-      status: (status['status'] ?? 0) as int,
-    );
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+  // Pobieramy status i mapę produktu (jeśli nie ma, dajemy pustą mapę)
+  final int status = json['status'] ?? 0;
+  final productData = json['product'] ?? {};
+  final nutriments = productData['nutriments'] ?? {};
+
+  // Funkcja pomocnicza do bezpiecznego konwertowania na double
+  double toDouble(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is int) return value.toDouble();
+    if (value is double) return value;
+    return 0.0;
   }
+
+  // Funkcja pomocnicza do bezpiecznego konwertowania na int
+  int toInt(dynamic value) {
+    if (value == null) return 0;
+    if (value is int) return value;
+    if (value is double) return value.toInt();
+    return 0;
+  }
+
+  return ProductModel(
+    name: (productData['product_name'] ?? "Nieznany produkt").toString(),
+    kcalPer100g: toInt(nutriments['energy-kcal_100g']),
+    proteinPer100g: toDouble(nutriments['proteins_100g']),
+    fatPer100g: toDouble(nutriments['fat_100g']),
+    carbsPer100g: toDouble(nutriments['carbohydrates_100g']),
+    status: status,
+  );
+}
 
   Product toProduct() {
     return Product(

@@ -12,14 +12,17 @@ class BarcodeApiService {
     );
 
     try {
-      final response = await http.get(
+      final response = await httpClient.get(
         url,
         headers: {'User-Agent': 'FitKalkulatorApp - Android - Version 1.0'},
       );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        return ProductModel.fromJson(data['product'], data['product']['nutriments'], data['status']);
+         if (data['status'] == 0 || data['product'] == null) {
+          return null; 
+        }
+        return ProductModel.fromJson(data);
       }
     } catch (e) {
       throw Exception("Błąd pobierania produktu: $e");

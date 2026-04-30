@@ -3,8 +3,8 @@ import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/view/barcode_b
 import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/view/cancel_button.dart';
 import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/view/autocomplete_widget.dart';
 import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/view/confirm_button.dart';
+import 'package:aplikacja_do_liczenia_kalorii/modules/daily_meals/view/mass_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class AddMealDialog extends StatefulWidget {
   const AddMealDialog({super.key});
@@ -47,15 +47,7 @@ class _AddMealDialogState extends State<AddMealDialog> {
               ],
             ),
             const SizedBox(height: 15),
-            TextField(
-              controller: _weightController,
-              keyboardType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              decoration: const InputDecoration(
-                labelText: "Waga (g)",
-                prefixIcon: Icon(Icons.scale),
-              ),
-            ),
+            MassTextfield(weightController: _weightController),
             const SizedBox(height: 15),
             const CalcDataCalories()
           ],
