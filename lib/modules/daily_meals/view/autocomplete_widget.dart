@@ -49,6 +49,7 @@ class AutocompleteWidget extends ConsumerWidget {
             }
             if (value.isEmpty) {
               ref.read(calcInDialogProvider.notifier).reset();
+              return;
             }
             String s = value.toLowerCase();
             s = s[0].toUpperCase() + s.substring(1);
