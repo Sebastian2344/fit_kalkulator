@@ -15,11 +15,9 @@ class MockCalcNotifier extends CalcInDialog {
   CalcData build() => state1;
 }
 void main() {
-  // Funkcja pomocnicza do budowania widgetu z nadpisanym providerem
   Widget createTestWidget(CalcData state) {
     return ProviderScope(
       overrides: [
-        // Nadpisujemy provider konkretnym stanem
         calcInDialogProvider.overrideWith(() => MockCalcNotifier(state)),
       ],
       child: const MaterialApp(
@@ -46,21 +44,18 @@ void main() {
       product: const Product(name: "Kurczak", kcalPer100g: 1, proteinPer100g: 1, fatPer100g: 1, carbsPer100g: 1),
       calories: 250,
       protein: 30.5,
-      fat: 10.25, // Zostanie zaokrąglone do 10.3 przez toStringAsFixed(1)
+      fat: 10.25,
       carbs: 0.0,
     );
 
     await tester.pumpWidget(createTestWidget(dataState));
 
-    // 1. Sprawdzamy kalorie
     expect(find.text('250 kcal'), findsOneWidget);
 
-    // 2. Sprawdzamy etykiety (Labels)
     expect(find.text('Białko'), findsOneWidget);
     expect(find.text('Tłuszcze'), findsOneWidget);
     expect(find.text('Węgle'), findsOneWidget);
 
-    // 3. Sprawdzamy sformatowane wartości (g)
     expect(find.text('30.5g'), findsOneWidget);
     expect(find.text('10.3g'), findsOneWidget); // Zaokrąglenie fat
     expect(find.text('0.0g'), findsOneWidget);

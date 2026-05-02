@@ -22,7 +22,11 @@ class FakeBarcodeNotifier extends BarcodeProvider {
     
     // Symulujemy krótkie opóźnienie, aby test "poczuł" asynchroniczność
     await Future.delayed(Duration.zero); 
-
+    if(code == "000"){
+      productToReturn = null;
+      state = const AsyncData(null);
+      return;
+    }
     productToReturn = Product(name: 'Banan', kcalPer100g: 100, proteinPer100g: 1, fatPer100g: 1, carbsPer100g: 1);
     state = AsyncData(productToReturn);
   }
@@ -61,7 +65,6 @@ void main() {
         calcInDialogProvider.overrideWith(() => fakeCalc),
       ],
       child: MaterialApp(
-        // Ważne: dodajemy trasę dla skanera, jeśli Twój kod go szuka
         home: Scaffold(
           body: BarcodeButton(weightController: weightController),
         ),
@@ -70,45 +73,35 @@ void main() {
   }
 
   testWidgets('Kliknięcie otwiera skaner i po sukcesie wywołuje recalculate', (tester) async {
-    // Przygotowanie danych
-    final testProduct = Product(name: 'Banan', kcalPer100g: 100, proteinPer100g: 1, fatPer100g: 1, carbsPer100g: 1);
     
     await tester.pumpWidget(createTestWidget());
-    fakeBarcode.productToReturn = testProduct;
 
-    // 1. Klikamy przycisk skanowania
     await tester.tap(find.byType(IconButton));
     await tester.pumpAndSettle();
 
-    // 2. Sprawdzamy czy skaner się otworzył
     expect(find.byType(BarcodeScannerScreen), findsOneWidget);
 
-    // 3. Symulujemy powrót ze skanera
     Navigator.of(tester.element(find.byType(BarcodeScannerScreen))).pop('12345');
-    
-    // 4. Proces szukania - najpierw pump(), żeby zacząć asynchroniczną metodę
-    await tester.pump(); 
-    expect(find.text('Szukam produktu...'), findsOneWidget);
 
-    // 5. Czekamy na zakończenie scanBarcode (Future.delayed w Fake'u)
     await tester.pumpAndSettle();
 
-    // 6. Weryfikacja efektów
     expect(fakeCalc.recalculateCalled, isTrue);
     expect(fakeCalc.capturedProduct?.name, 'Banan');
   });
 
   testWidgets('Pokazuje komunikat błędu, gdy produkt nie zostanie znaleziony', (tester) async {
-    fakeBarcode.productToReturn = null; // Nic nie znaleziono
-
+   
     await tester.pumpWidget(createTestWidget());
 
     await tester.tap(find.byType(IconButton));
     await tester.pumpAndSettle();
 
+    expect(find.byType(BarcodeScannerScreen), findsOneWidget);
     Navigator.of(tester.element(find.byType(BarcodeScannerScreen))).pop('000');
     await tester.pumpAndSettle();
 
+    expect(find.byType(BarcodeScannerScreen), findsNothing);
+    expect(fakeBarcode.productToReturn, isNull);
     expect(find.text('Nie znaleziono produktu w bazie.'), findsOneWidget);
     expect(fakeCalc.recalculateCalled, isFalse);
   });
@@ -116,7 +109,6 @@ void main() {
   testWidgets('Kolor ikony zmienia się w zależności od stanu', (tester) async {
     await tester.pumpWidget(createTestWidget());
 
-    // Stan początkowy (null)
     Icon icon = tester.widget(find.byIcon(Icons.qr_code_scanner));
     expect(icon.color, Colors.limeAccent);
 

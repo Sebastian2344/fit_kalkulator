@@ -18,9 +18,6 @@ class FakeCalorieGoal extends CalorieGoal {
 
   @override
   void setGoal(int newGoal) {
-    // Nadpisujemy metodę setGoal, aby tylko zmieniała stan.
-    // Pomijamy odwołanie do Hive (ref.read(settingsBoxProvider).put),
-    // dzięki czemu testy uruchamiają się błyskawicznie i nie rzucają błędów bazy.
     state = newGoal;
   }
 }
@@ -98,13 +95,11 @@ void main() {
     // Wpisujemy poprawną, nową wartość
     await tester.enterText(find.byType(TextField), '3500');
     await tester.tap(find.text('Zapisz'));
-    await tester.pumpAndSettle();
-
-    // Dialog zniknął
-    expect(find.byType(AlertDialog), findsNothing);
-
     // Wartość providera została pomyślnie zaktualizowana
     expect(container.read(calorieGoalProvider), 3500);
+    await tester.pumpAndSettle();
+    // Dialog zniknął
+    expect(find.byType(AlertDialog), findsNothing);
   });
 
   testWidgets('Wpisanie wartości 0 nic nie robi (nie zamyka dialogu ani nie zmienia celu)', (tester) async {

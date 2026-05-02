@@ -10,9 +10,6 @@ class BarcodeButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final barcodeState = ref
-        .watch(barcodeProviderProvider)
-        .value; // Odświeżamy ikonę po zmianie stanu skanowania
     return IconButton.filled(
       onPressed: () async {
         final barcode = await Navigator.push<String>(
@@ -22,14 +19,10 @@ class BarcodeButton extends ConsumerWidget {
 
         if (barcode != null) {
           if (!context.mounted) return;
-
-          final scaffoldMessenger = ScaffoldMessenger.of(context);
-
-          // Czyścimy poprzednie snackbary (żeby nie było kolejkowania)
-          scaffoldMessenger.clearSnackBars();
-          scaffoldMessenger.showSnackBar(
-            const SnackBar(content: Text('Szukam produktu...')),
-          );
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('Szukam produktu...')));
 
           // Pobieramy dane
           await ref.read(barcodeProviderProvider.notifier).scanBarcode(barcode);
@@ -38,24 +31,31 @@ class BarcodeButton extends ConsumerWidget {
 
           final scannedProduct = ref.read(barcodeProviderProvider).value;
 
-          scaffoldMessenger.clearSnackBars(); // Usuwamy napis "Szukam..."
+          ScaffoldMessenger.of(
+            context,
+          ).clearSnackBars(); // Usuwamy napis "Szukam..."
 
           if (scannedProduct != null) {
             ref
                 .read(calcInDialogProvider.notifier)
                 .recalculate(scannedProduct, weightController);
           } else {
-            scaffoldMessenger.showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Nie znaleziono produktu w bazie.')),
             );
           }
         }
       },
-      icon: Icon(
-        Icons.qr_code_scanner,
-        color: barcodeState == null
-            ? Colors.limeAccent
-            : Colors.lightGreenAccent,
+      icon: Consumer(
+        builder: (context, ref, child) {
+          final barcodeState = ref.watch(barcodeProviderProvider).value;
+          return Icon(
+            Icons.qr_code_scanner,
+            color: barcodeState == null
+                ? Colors.limeAccent
+                : Colors.lightGreenAccent,
+          );
+        },
       ),
       tooltip: "Zeskanuj kod",
     );
